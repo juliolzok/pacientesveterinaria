@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './bootstrap.min.css';
+import Header from './components/Header';
+import NuevaCita from './components/NuevaCita';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  state = {
+
+  }
+  render() {
+    return (
+      <div className='container'>
+        <Header
+          titulo='Administrador de Pacientes Veterinaria'
+         />
+         <div className='row'>
+            <div className='col-md-10 mx-auto'>
+                <NuevaCita />
+            </div>
+         </div>
+      </div>
+    );
+  }
 }
 
 export default App;
