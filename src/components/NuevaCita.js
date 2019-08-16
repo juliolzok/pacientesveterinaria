@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 
 class NuevaCita extends Component {
     state = {
-
+        cita:{
+            mascota:'',
+            propietario:'',
+            fecha:'',
+            hora:'',
+            sintomas:''
+        }
+    }
+    handleChange = (e) => {
+        //colocar lo que le ususario esribe en el state
+        this.setState({
+            cita:{
+                ...this.state.cita,
+                [e.target.name]:e.target.value
+            }
+        })
     }
     render(){
         return (
@@ -19,18 +34,22 @@ class NuevaCita extends Component {
                                     type='text'
                                     className='form-control'
                                     placeholder='Nombre de Mascota'
-                                    name='mascota'            
+                                    name='mascota'
+                                    onChange={this.handleChange}
+                                    value={this.state.cita.mascota}    
                                 />
-                            </div> {/* form group */}
-                        </div>
+                            </div> 
+                        </div>{/* form group */}
                         <div className='form-group row'>
-                            <label className='col-sm-4 col-lg-2 col-form-label'>Nombre del Dueño</label>
+                            <label className='col-sm-4 col-lg-2 col-form-label'>Nombre del propietario</label>
                             <div className='col-sm-8 col-lg-10'>
                                 <input
                                     type='text'
                                     className='form-control'
-                                    placeholder='Nombre del dueño'
-                                    name='dueño'            
+                                    placeholder='Nombre del propietario'
+                                    name='propietario'
+                                    onChange={this.handleChange}
+                                    value={this.state.cita.propietario}      
                                 />
                             </div> 
                         </div>{/* form group */}
@@ -40,7 +59,9 @@ class NuevaCita extends Component {
                                 <input
                                     type='date'
                                     className='form-control'
-                                    name='fecha'            
+                                    name='fecha'
+                                    onChange={this.handleChange}
+                                    value={this.state.cita.fecha}
                                 />
                             </div> 
                             <label className='col-sm-4 col-lg-2 col-form-label'>Hora</label>
@@ -48,10 +69,26 @@ class NuevaCita extends Component {
                                 <input
                                     type='time'
                                     className='form-control'
-                                    name='hora'            
+                                    name='hora'
+                                    onChange={this.handleChange}
+                                    value={this.state.cita.hora}
                                 />
                             </div> 
                         </div>{/* form group */}
+                        <div className='form-group row'>
+                            <label className='col-sm-4 col-lg-2 col-form-label'>Sintomas</label>
+                            <div className='col-sm-8 col-lg-10'>
+                                <textarea
+                                    className='form-control'
+                                    name='sintomas'
+                                    placeholder='Describe los sintomas'
+                                    onChange={this.handleChange}
+                                    value={this.state.cita.sintomas}
+                                >
+                                </textarea>            
+                            </div> 
+                        </div>{/* form group */}
+                        <input type='submit' className='py-3 mt-2 btn btn-success btn-block' value='Agregar Nueva Cita'/>
                     </form>
                 </div>
             </div>          
