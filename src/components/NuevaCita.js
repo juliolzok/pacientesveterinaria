@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
+import PropTypes from 'prop-types';
 
-class NuevaCita extends Component {
-    state = {
+const stateInicial =  {
         cita:{
             mascota:'',
             propietario:'',
             fecha:'',
             hora:'',
             sintomas:''
-        }
-    }
+        },
+        error: false
+}
+
+class NuevaCita extends Component {
+    state = { ...stateInicial  }
+    // cuando el usuario escribe en el imput
     handleChange = (e) => {
-        //colocar lo que le ususario esribe en el state
+        // colocar lo que le ususario esribe en el state
         this.setState({
             cita:{
                 ...this.state.cita,
@@ -19,14 +25,47 @@ class NuevaCita extends Component {
             }
         })
     }
+    
+    //cuando el usuario envia el formulario
+    handleSubmit = (e) => {
+        e.preventDefault();
+        // extraer los valores del state\
+        const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
+        // validar que todos los campos esten llenos
+        if (mascota === '' || propietario === '' || fecha === '' || hora === '' || sintomas === ''){
+            this.setState({
+                error: true
+            });
+            // detener la ejecucion 
+            return;
+        }
+
+        const nuevaCita = {...this.state.cita}
+        nuevaCita.id = uuid();
+        // Agregar la cita al state de App
+        this.props.crearNuevaCita(nuevaCita);
+          // colocar en el state el stateInicial
+        this.setState({
+            ...stateInicial
+        })
+
+    }
+
     render(){
+
+        // extraer valor del state
+
+        const { error } = this.state;
         return (
             <div className='card mt-5 py-5'>
                 <div className='card-body'>
-                    <h2 className='card-title text-center mb-5'>
+                    <h2 className='card-title card-header text-center mb-5'>
                         Llena el formulario para crear una nueva cita
                     </h2>
-                    <form>
+                    { error ? <div className='alert alert-danger mt-2 mb-5 text-center'>Todos lo campos son obligatorios</div> : null}
+                    <form
+                        onSubmit={this.handleSubmit}
+                    >
                         <div className='form-group row'>
                             <label className='col-sm-4 col-lg-2 col-form-label'>Nombre de Mascota</label>
                             <div className='col-sm-8 col-lg-10'>
@@ -94,6 +133,9 @@ class NuevaCita extends Component {
             </div>          
         );
     }
+}
+NuevaCita.propTypes = {
+    crearNuevaCita: PropTypes.func.isRequired
 }
 
 export default NuevaCita;
