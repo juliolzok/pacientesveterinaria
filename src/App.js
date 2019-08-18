@@ -3,9 +3,6 @@ import './bootstrap.min.css';
 import Header from './components/Header';
 import NuevaCita from './components/NuevaCita';
 import ListaCitas from './components/ListaCitas';
-import PropTypes from 'prop-types';
-
-
 
 class App extends Component {
   state = {
